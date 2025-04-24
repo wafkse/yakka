@@ -1,0 +1,176 @@
+//! Proportional Integral Derivative (PID) controller.
+//!
+//! This module provides a PID controller implementation that can be used to control
+//! a system based on a setpoint and a process variable. The controller computes the
+//! control output based on the error between the setpoint and the process variable,
+//! and the PID gains (proportional, integral, and derivative).
+
+use core::{
+    num::NonZero,
+    ops::{Div, Mul, Sub},
+};
+
+use yakka_number::scalar::Scalar;
+use yakka_time::Millisecond;
+use yakka_unit::unit::{Scale, Unit};
+
+use crate::{
+    cycle::Delta,
+    system::{Control, Error, Setpoint, Variable},
+};
+
+pub mod gain;
+
+use gain::{Gain, Integral};
+
+/// A PID (Proportional-Integral-Derivative) controller that operates on setpoints and process variables of type `T`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
+pub struct Pid<T>
+where
+    T: Scalar,
+{
+    /// The threee the gain factors of the PID controller: (K_p, K_i, K_d)
+    gain_factor: Gain<T>,
+
+    /// The setpoint of the controller.
+    setpoint: Setpoint<T>,
+
+    /// The integral component of this controller.
+    integral: Integral<T>,
+
+    /// The measured `SP-PV` error of the previous control cycle.
+    previous_error: Error<T>,
+}
+
+/// The context passed to a control cycle inside [`Pid`].
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[non_exhaustive]
+pub struct PidContext<T /* = Fixpoint<u8, 8> */>
+where
+    T: Scalar,
+{
+    /// The process variable as measured from the driver.
+    variable: Variable<T>,
+
+    /// The time delta for this control cycle.
+    delta_time: Delta<Millisecond<u8 /* Fixpoint<u8, 4> */>>,
+}
+
+impl Control<f32> for Pid<f32> {
+    type Context<'a>
+        = PidContext<f32>
+    where
+        Self: 'a;
+
+    fn cycle_with_ctx<'a>(
+        &'a mut self,
+        PidContext {
+            variable,
+            delta_time,
+            ..
+        }: Self::Context<'a>,
+    ) -> f32 {
+        let &mut Self {
+            gain_factor,
+            setpoint,
+            ref mut previous_error,
+            ref mut integral,
+            ..
+        } = self;
+
+        let target_error = Error::raw(setpoint.value() - variable.value());
+
+        let proportional = gain_factor.p().mul(target_error.value());
+
+        let dt_ms = NonZero::new(delta_time.unit().magnitude()).unwrap_or(NonZero::<u8>::MIN);
+
+        let dt = Scale::fractional(&Millisecond::<u8>::SCALE_TO_BASE) * dt_ms.get() as f32;
+
+        let &mut Integral(ref mut integral_value) = integral;
+
+        *integral_value += target_error.mul(dt);
+
+        let integral = gain_factor.i().value() * *integral_value;
+
+        let derivative = target_error.value().sub(previous_error.value()).div(dt);
+
+        *previous_error = target_error;
+
+        proportional + integral + derivative
+    }
+}
+
+impl<T> Pid<T>
+where
+    T: Scalar,
+{
+    /// Determine the gain factors in use by this controller.
+    #[inline]
+    pub const fn gain(&self) -> &Gain<T> {
+        let &Self {
+            ref gain_factor, ..
+        } = self;
+
+        gain_factor
+    }
+
+    /// Determine the setpoint for this controller.
+    #[inline]
+    pub const fn setpoint(&self) -> &Setpoint<T> {
+        let &Self { ref setpoint, .. } = self;
+
+        setpoint
+    }
+
+    /// Determine the setpoint for this controller, mutably.
+    #[inline]
+    pub const fn setpoint_mut(&mut self) -> &mut Setpoint<T> {
+        let &mut Self {
+            ref mut setpoint, ..
+        } = self;
+
+        setpoint
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pid_stabilizes_error_to_zero() {
+        let mut pid = Pid {
+            gain_factor: Gain::tuple((1.0, 0.02, 0.05)),
+            setpoint: Setpoint::raw(10.0),
+            integral: Integral::zero(),
+            previous_error: Error::zero(),
+        };
+
+        let mut pv = 0.0;
+
+        for cycle in 0..1500 {
+            let ctx = PidContext {
+                variable: Variable::raw(pv),
+                delta_time: Delta::time(Millisecond::raw(10)),
+            };
+
+            // Controller output (e.g., heat power, motor force, etc.)
+            let control_output = pid.cycle_with_ctx(ctx);
+
+            pv += 0.01;
+
+            if cycle > 10000 {
+                pv -= 0.005;
+            }
+
+            // Print each step to debug or graph
+            println!("PV: {:.2}, control: {:.2}", pv, control_output);
+        }
+
+        assert!(
+            (pv - 10.0).abs() < 0.5,
+            "Expected PV to approach setpoint. Got {}",
+            pv
+        );
+    }
+}

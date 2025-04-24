@@ -1,0 +1,10 @@
+[package]
+name = "yakka-control"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+num = { version = "0.4.3", default-features = false }
+yakka-number = { version = "0.1.0", path = "../yakka-number" }
+yakka-time = { version = "0.1.0", path = "../yakka-time" }
+yakka-unit = { version = "0.1.0", path = "../yakka-unit" }

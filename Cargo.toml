@@ -1,0 +1,17 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "yakka-control",
+    "yakka-fixpoint",
+    "yakka-flight",
+    "yakka-length",
+    "yakka-motion",
+    "yakka-number",
+    "yakka-time",
+    "yakka-unit",
+]
+
+[workspace.dependencies]
+nalgebra = { version = "0.33.2", default-features = false }
+typenum = "1.18.0"

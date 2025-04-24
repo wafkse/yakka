@@ -1,0 +1,9 @@
+[package]
+name = "yakka-motion"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+typenum = { workspace = true }
+nalgebra = { workspace = true }
+yakka-number = { version = "0.1.0", path = "../yakka-number" }
