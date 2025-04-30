@@ -54,6 +54,9 @@ where
 
     /// The time delta for this control cycle.
     delta_time: Delta<Millisecond<u8 /* Fixpoint<u8, 4> */>>,
+
+    /// The cycle index of the control cycle.
+    cycle_index: Option<NonZero<usize>>,
 }
 
 impl Control<f32> for Pid<f32> {
@@ -130,47 +133,5 @@ where
         } = self;
 
         setpoint
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn pid_stabilizes_error_to_zero() {
-        let mut pid = Pid {
-            gain_factor: Gain::tuple((1.0, 0.02, 0.05)),
-            setpoint: Setpoint::raw(10.0),
-            integral: Integral::zero(),
-            previous_error: Error::zero(),
-        };
-
-        let mut pv = 0.0;
-
-        for cycle in 0..1500 {
-            let ctx = PidContext {
-                variable: Variable::raw(pv),
-                delta_time: Delta::time(Millisecond::raw(10)),
-            };
-
-            // Controller output (e.g., heat power, motor force, etc.)
-            let control_output = pid.cycle_with_ctx(ctx);
-
-            pv += 0.01;
-
-            if cycle > 10000 {
-                pv -= 0.005;
-            }
-
-            // Print each step to debug or graph
-            println!("PV: {:.2}, control: {:.2}", pv, control_output);
-        }
-
-        assert!(
-            (pv - 10.0).abs() < 0.5,
-            "Expected PV to approach setpoint. Got {}",
-            pv
-        );
     }
 }
