@@ -1,0 +1,17 @@
+[package]
+name = "yakka-flight"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["debug-impl", "defmt"]
+debug-impl = []
+defmt = ["dep:defmt"]
+
+
+[dependencies]
+yakka-motion = { version = "0.1.0", path = "../shared/yakka-motion" }
+yakka-number = { version = "0.1.0", path = "../shared/yakka-number" }
+yakka-time = { version = "0.1.0", path = "../shared/yakka-time" }
+
+defmt = { workspace = true, optional = true }

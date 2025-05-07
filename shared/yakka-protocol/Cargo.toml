@@ -1,0 +1,14 @@
+[package]
+name = "yakka-protocol"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["debug-impl", "defmt"]
+debug-impl = []
+defmt = ["dep:defmt"]
+
+[dependencies]
+defmt = { workspace = true, optional = true }
+
+bincode = { version = "2.0.1", default-features = false, features = ["derive"] }

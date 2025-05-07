@@ -1,8 +1,0 @@
-[package]
-name = "yakka-fixpoint"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-permafrost = "0.1.1"
-yakka-number = { version = "0.1.0", path = "../yakka-number" }

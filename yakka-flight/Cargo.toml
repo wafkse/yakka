@@ -1,9 +1,0 @@
-[package]
-name = "yakka-flight"
-version = "0.1.0"
-edition = "2024"
-
-[dependencies]
-yakka-motion = { version = "0.1.0", path = "../yakka-motion" }
-yakka-number = { version = "0.1.0", path = "../yakka-number" }
-yakka-time = { version = "0.1.0", path = "../yakka-time" }

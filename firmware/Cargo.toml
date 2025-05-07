@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "yakka-control",
+    "yakka-flight",
+    "yakka-motor",
+    "yakka-drone",
+]
+
+[workspace.dependencies]
+nalgebra = { version = "0.33.2", default-features = false }
+typenum = "1.18.0"
+num = { version = "0.4.3", default-features = false }
+defmt = "1.0.1"
+defmt-rtt = "1.0.0"
+permafrost = "0.1.1"
+embedded-hal = { version = "1.0.0", features = ["defmt-03"] }
+embedded-hal-async = { version = "1.0.0", features = ["defmt-03"] }

@@ -1,0 +1,16 @@
+[package]
+name = "yakka-time"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["debug-impl", "defmt"]
+debug-impl = []
+defmt = ["dep:defmt"]
+
+
+[dependencies]
+defmt = { workspace = true, optional = true }
+
+yakka-number = { version = "0.1.0", path = "../yakka-number" }
+yakka-unit = { version = "0.1.0", path = "../yakka-unit" }
