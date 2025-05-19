@@ -1,0 +1,13 @@
+[package]
+name = "yakka-imu"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+embedded-hal-async.workspace = true
+libm = "0.2.15"
+permafrost.workspace = true
+yakka-bit = { version = "0.1.0", path = "../yakka-bit" }
+yakka-fixpoint = { version = "0.1.0", path = "../yakka-fixpoint" }
+yakka-number = { version = "0.1.0", path = "../yakka-number" }
+yakka-register = { version = "0.1.0", path = "../yakka-register" }

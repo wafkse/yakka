@@ -12,4 +12,4 @@
 //!
 //! This crate provides the *flight control functionality* for the Yakka project.
 
-pub mod physical;
+pub mod motion;

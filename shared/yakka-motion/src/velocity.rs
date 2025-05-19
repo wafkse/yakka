@@ -9,8 +9,7 @@ use yakka_number::scalar::Scalar;
 
 /// A velocity in 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Velocity3<T>(Vector3<T>)
 where
@@ -43,8 +42,7 @@ where
 
 /// A velocity in 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Velocity2<T>(Vector2<T>)
 where

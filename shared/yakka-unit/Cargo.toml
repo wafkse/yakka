@@ -4,12 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [features]
-default = ["debug-impl", "defmt"]
-debug-impl = []
-defmt = ["dep:defmt"]
 
 
 [dependencies]
 yakka-number = { version = "0.1.0", path = "../yakka-number" }
-
-defmt = { workspace = true, optional = true }

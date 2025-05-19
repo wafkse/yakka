@@ -45,8 +45,6 @@ pub trait Fraction<const N: usize>: private::Sealed {}
 ///  - The *integer* part: extracted as-is using bitwise operations.
 ///  - The *fractional* part: extracted as-is, but then left-shifted towards MSB as per the defined fractional bits to reach a standard-ish floating-point representation.
 #[derive(Eq, PartialEq, PartialOrd)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 pub struct Partwise {
     /// The integer part of the number.
     integer: u64,
@@ -83,9 +81,7 @@ pub trait Floating {
 }
 
 /// A fixed-point number type pinned to `N` bits of decimal precision.
-#[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Ord, PartialOrd)]
 #[repr(transparent)]
 pub struct Fixpoint<T, const N: usize>(T)
 where
@@ -103,6 +99,14 @@ where
         Self(target_value)
     }
 
+    /// Unwrap the internal fixed-point value from this new-type.
+    #[inline]
+    pub const fn value(self) -> T {
+        let Self(target_value) = self;
+
+        target_value
+    }
+
     /// Convert to a [`Fixpoint`] literal from a floating-point number `F`.
     ///
     /// The [`Fixpoint`] literal will adopt the absolute value of `F`.
@@ -118,7 +122,7 @@ where
 
     /// Convert a [`Fixpoint`] number into a regular floating-point number `F`.
     ///
-    /// The float `F` is guaranteed to be non-negative.
+    /// The yielded float `F` is guaranteed to be non-negative.
     #[inline]
     pub fn float<F>(self) -> F
     where
@@ -129,6 +133,18 @@ where
         let target_partwise = target_value.partwise::<N>();
 
         F::partwise(target_partwise)
+    }
+
+    /// Convert a scalar value `T` into a [`Fixpoint`] number.
+    ///
+    /// This will strip any non-fitting bits from the scalar value.
+    #[inline]
+    pub fn scalar(target_scalar: T) -> Self {
+        /* interpret as if it had zero fractional bits */
+        let target_partwise = target_scalar.partwise::<0>();
+
+        /* reinterpret it back with N fractional bits, effectively scaling it to our desired range */
+        Self(T::interpret::<N>(target_partwise))
     }
 }
 

@@ -7,12 +7,9 @@ use yakka_number::{
 
 use crate::dimension::Dimension;
 
-
-
 /// A relationship between an [`Unit`] and its respective base unit.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub enum Scale {
     /// A scale that corresponds to a multiple of the base unit.
     Multiple(Ratio),

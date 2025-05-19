@@ -12,4 +12,5 @@
   "rust-analyzer.showUnlinkedFileNotification": false,
   "rust-analyzer.cargo.target": "thumbv8m.main-none-eabihf",
   "rust-analyzer.cargo.features": [],
+  "rust-analyzer.cfg.setTest": false
 }

@@ -123,8 +123,7 @@ where
 ///
 /// [Tait–Bryan angles]: https://en.wikipedia.org/wiki/Euler_angles#Tait%E2%80%93Bryan_angles
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Euler3<T>
 where
     T: Scalar,
@@ -193,8 +192,7 @@ where
 
 /// A struct that represents T in 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Euler2<T>
 where
     T: Scalar,
@@ -245,8 +243,7 @@ where
 
 /// A structure encompassing the angular motion of a system in 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Angular3<T>
 where
     T: Scalar,
@@ -292,8 +289,7 @@ where
 
 /// A structure encompassing the angular motion of a system in 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Angular2<T>
 where
     T: Scalar,

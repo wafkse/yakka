@@ -9,8 +9,6 @@ use yakka_number::scalar::Scalar;
 use yakka_time::Millisecond;
 use yakka_unit::unit::{Scale, Unit};
 
-
-
 use crate::{
     cycle::Delta,
     system::{Control, Error, Setpoint, Variable},
@@ -23,8 +21,6 @@ use gain::{Gain, Integral};
 /// A PID (Proportional-Integral-Derivative) controller that operates on setpoints and process
 /// variables of type `T`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 pub struct Pid<T>
 where
     T: Scalar,
@@ -44,8 +40,6 @@ where
 
 /// The context passed to a control cycle inside [`Pid`].
 #[derive(Clone, Copy, PartialEq, Eq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 #[non_exhaustive]
 pub struct PidContext<T /* = Fixpoint<u8, 8> */>
 where

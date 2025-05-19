@@ -25,8 +25,7 @@ use yakka_unit::unit;
 
 /// The SI unit of time, the second.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Second<T>(T)
 where

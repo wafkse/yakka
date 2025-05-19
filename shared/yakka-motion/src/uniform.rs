@@ -11,8 +11,7 @@ use crate::{
 
 /// A struct that represents uniform motion in a 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Uniform3<T>
 where
     T: Scalar,
@@ -74,8 +73,7 @@ where
 
 /// A struct that represents uniform motion in a 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Uniform2<T>
 where
     T: Scalar,

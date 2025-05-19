@@ -10,8 +10,7 @@ use crate::control::ControlBehavior;
 ///
 /// This is receiver-agnostic, so there is no {client,server}-only packet sets.
 #[derive(Encode, BorrowDecode)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub enum Packet<'a> {
     /// Set the aircraft's armed state.
     ///
@@ -27,8 +26,7 @@ pub enum Packet<'a> {
 
 /// The packet that defines the armed state of the aircraft.
 #[derive(Encode, Decode)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub enum PacketArm {
     /// Arm the drone.
     Arm,
@@ -39,8 +37,7 @@ pub enum PacketArm {
 
 /// A single control packet.
 #[derive(Encode, Decode)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub enum PacketControl {
     /// Define the control behavior of the aircraft.
     Behavior(ControlBehavior),

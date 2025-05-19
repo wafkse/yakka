@@ -8,8 +8,7 @@
 ///
 /// This type is fully transparent over an [`u8`].
 #[derive(Copy, Clone, PartialEq, PartialOrd, Eq, Ord, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Normal(u8);
 

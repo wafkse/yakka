@@ -3,34 +3,40 @@ name = "yakka-drone"
 version = "0.1.0"
 edition = "2024"
 
+build = "build.rs"
+
 [dependencies]
-embassy-time = { version = "0.4.0", features = [
-    "defmt",
-    "defmt-timestamp-uptime",
-] }
-embassy-executor = { version = "0.7.0", features = [
-    "task-arena-size-98304",
-    "arch-cortex-m",
-    "executor-thread",
-    "executor-interrupt",
-    "defmt",
-] }
-embassy-embedded-hal = { version = "0.3.0", features = ["defmt"] }
-embassy-futures = "0.1.1"
-embassy-net = { version = "0.7.0", features = [
-    "defmt",
-    "tcp",
-    "dhcpv4",
-    "medium-ethernet",
-] }
-embassy-rp = { version = "0.4.0", features = [
-    "defmt",
-    "unstable-pac",
-    "time-driver",
-    "critical-section-impl",
-    "rp235xa",
-    "binary-info",
-] }
-embassy-sync = "0.6.2"
-cortex-m = { version = "0.7.7", features = ["inline-asm"] }
-cortex-m-rt = "0.7.5"
+embassy-time = { workspace = true }
+embassy-executor = { workspace = true }
+embassy-embedded-hal = { workspace = true }
+embassy-futures = { workspace = true }
+embassy-net = { workspace = true }
+embassy-rp = { workspace = true }
+embassy-sync = { workspace = true }
+cortex-m = { workspace = true }
+cortex-m-rt = { workspace = true }
+critical-section = { workspace = true }
+embassy-usb-logger = { version = "0.4.0" }
+yakka-log = { version = "0.1.0", path = "../yakka-log" }
+yakka-motor = { version = "0.1.0", path = "../../shared/yakka-motor" }
+yakka-number = { version = "0.1.0", path = "../../shared/yakka-number" }
+yakka-imu = { version = "0.1.0", path = "../../shared/yakka-imu" }
+embassy-usb = { workspace = true }
+log = "0.4.27"
+yakka-resource = { version = "0.1.0", path = "../yakka-resource" }
+yakka-subsystem = { version = "0.1.0", path = "../yakka-subsystem" }
+cyw43 = "0.3.0"
+cyw43-pio = "0.4.0"
+static_cell = "2.1.0"
+heapless = "0.8.0"
+
+
+[profile.release]
+debug = 2
+lto = true
+opt-level = 'z'
+
+[profile.dev]
+debug = 2
+lto = true
+opt-level = "z"

@@ -2,7 +2,6 @@
 
 use core::ops::{Deref, DerefMut};
 
-
 use nalgebra::Vector3;
 use yakka_number::scalar::Scalar;
 
@@ -10,8 +9,7 @@ use crate::{position::Position3, velocity::Velocity3};
 
 /// An acceleration in 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+#[repr(transparent)]
 pub struct Acceleration3<T>(Vector3<T>)
 where
     T: Scalar;
@@ -44,8 +42,6 @@ where
 
 /// Accelerated motion in 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 pub struct Accelerated3<T>
 where
     T: Scalar,

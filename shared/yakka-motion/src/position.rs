@@ -9,8 +9,7 @@ use yakka_number::scalar::Scalar;
 
 /// A position in 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Position3<T>(Vector3<T>)
 where
@@ -43,8 +42,7 @@ where
 
 /// A position in 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Position2<T>(Vector2<T>)
 where

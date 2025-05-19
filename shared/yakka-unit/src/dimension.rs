@@ -22,8 +22,7 @@ macro_rules! dimension {
         $dim_vis:vis $dim_name:ident
     ) => {
         #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
         $(
             #[$dim_meta]
         )*

@@ -29,9 +29,7 @@ macro_rules! unit {
         $(
             #[$unit_meta]
         )*
-        #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-        #[cfg_attr(feature = "defmt", derive(defmt::Format))]
-        #[cfg_attr(feature = "debug-impl", derive(Debug))]
+        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
         #[repr(transparent)]
         pub struct $unit_ident<T>(T)
         where

@@ -6,12 +6,8 @@
 use yakka_number::scalar::Scalar;
 use yakka_unit::{dimension::Time, unit::Unit};
 
-
-
 /// The delta-time of a control cycle. Measured in units of time.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 #[repr(transparent)]
 pub struct Delta<U>(U)
 where
@@ -38,8 +34,6 @@ where
 
 /// The output of a specific control system that outputs a scalar value of type `T`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 #[repr(transparent)]
 pub struct Output<T>(T)
 where
@@ -66,8 +60,7 @@ where
 
 /// A limit of the output of a control system.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Limit<T>
 where
     T: Scalar,
@@ -81,8 +74,7 @@ where
 
 /// The filtered output of a control system.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Filtered<T>
 where
     T: Scalar,

@@ -14,8 +14,7 @@ use yakka_number::{prelude::Zero, scalar::Scalar};
 /// This is a transparent wrapper over the underlying scalar, therefore the use of this structure is
 /// only useful to tag the data with its associated use case.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Proportional<T>(T)
 where
@@ -63,8 +62,7 @@ where
 /// This is a transparent wrapper over the underlying scalar, therefore the use of this structure is
 /// only useful to tag the data with its associated use case.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Integral<T>(pub T)
 where
@@ -134,8 +132,7 @@ where
 /// This is a transparent wrapper over the underlying scalar, therefore the use of this structure is
 /// only useful to tag the data with its associated use case.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Derivative<T>(T)
 where
@@ -168,8 +165,7 @@ where
 
 /// A structure that encompasses all gain factors for a PID controller.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Gain<T>(Proportional<T>, Integral<T>, Derivative<T>)
 where
     T: Scalar;

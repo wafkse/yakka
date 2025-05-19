@@ -1,0 +1,13 @@
+[package]
+name = "yakka-motor"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+
+
+[dependencies]
+
+embedded-hal = { workspace = true }
+embedded-hal-async = { workspace = true }
+yakka-number = { version = "0.1.0", path = "../../shared/yakka-number" }

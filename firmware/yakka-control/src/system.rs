@@ -8,8 +8,7 @@ use yakka_number::{prelude::Zero, scalar::Scalar};
 /// A trait that represents a control system of any kind: closed-loop or open-loop, and that
 /// operates on scalar values of type `T`
 ///
-/// For open-loop control systems, an unit [context] can be used. Use the [`Control::cycle`] method
-/// to perform a control cycle.
+/// For open-loop control systems, an unit [context] can be used.
 ///
 /// [context]: Control::Context
 pub trait Control<T>
@@ -40,8 +39,6 @@ where
 ///
 /// This represents the active target value that the system is trying to achieve.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 #[repr(transparent)]
 pub struct Setpoint<T>(T)
 where
@@ -84,8 +81,6 @@ where
 ///
 /// This is the actual value that the system is measuring or controlling.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
 #[repr(transparent)]
 pub struct Variable<T>(T)
 where
@@ -128,8 +123,7 @@ where
 ///
 /// Has no explicit meaning by itself, and thus it must be defined the user.
 #[derive(Clone, Copy, PartialEq, Eq, Hash)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 pub struct Error<T>(T)
 where
     T: Scalar;

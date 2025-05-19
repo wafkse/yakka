@@ -1,0 +1,8 @@
+[package]
+name = "yakka-register"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+yakka-bit = { version = "0.1.0", path = "../yakka-bit" }
+yakka-number = { version = "0.1.0", path = "../yakka-number" }

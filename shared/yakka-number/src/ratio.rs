@@ -40,8 +40,7 @@ impl<const N: usize> Ratioable<N> for Const<N> {}
 /// For example, take a 2-tuple `(2, 4)`, which is a ratio of `2:4`. This can be interpreted as `2`
 /// being half of `4`, or `4` being twice as much as `2`.
 #[derive(Clone, Copy, PartialEq, Eq, Hash, PartialOrd, Ord)]
-#[cfg_attr(feature = "defmt", derive(defmt::Format))]
-#[cfg_attr(feature = "debug-impl", derive(Debug))]
+
 #[repr(transparent)]
 pub struct Ratio(pub NonZero<usize>);
 
