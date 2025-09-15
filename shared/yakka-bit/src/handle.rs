@@ -2,7 +2,7 @@
 
 use crate::{state::State, take::Bits};
 
-/// The `N`-th bit inside `I`.
+/// The read-only `N`-th bit inside `I`.
 #[derive(Debug, Eq, PartialEq, PartialOrd, Ord)]
 #[repr(transparent)]
 pub struct Bit<'a, I, const N: usize>(&'a I)
@@ -49,7 +49,7 @@ where
     }
 }
 
-/// A mutable bit in a register.
+/// The read-write `N`-th bit inside `I`.
 #[derive(Debug, Eq, PartialEq, PartialOrd, Ord)]
 #[repr(transparent)]
 pub struct BitMut<'a, I, const N: usize>(&'a mut I)

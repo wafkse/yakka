@@ -104,7 +104,7 @@ async fn main(target_spawner: Spawner) {
 
     let target_stack = network_stack.stack();
 
-    let target_server = Server::<1234, 0x1000>
+    Server::<1234, 0x1000>
         .subsystem_with_context(target_stack)
         .await;
 

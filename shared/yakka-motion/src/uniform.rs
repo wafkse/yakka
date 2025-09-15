@@ -7,8 +7,6 @@ use crate::{
     velocity::{Velocity2, Velocity3},
 };
 
-
-
 /// A struct that represents uniform motion in a 3-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
 
@@ -73,7 +71,6 @@ where
 
 /// A struct that represents uniform motion in a 2-dimensional space.
 #[derive(Clone, Copy, PartialEq)]
-
 pub struct Uniform2<T>
 where
     T: Scalar,
